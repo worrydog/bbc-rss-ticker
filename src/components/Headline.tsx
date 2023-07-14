@@ -1,11 +1,12 @@
 import { Component, ReactNode } from "react";
-import { HeadlineProps } from "../types";
+import { RSSEntry } from "../types";
+import "../styles.css";
 
-export class Headline extends Component<HeadlineProps> {
+export class Headline extends Component<RSSEntry> {
     render(): ReactNode {
         const { title } = this.props;
         return (
-            <div>Headline: { title } </div>
+            <div className="headlineContainer"><p>{ title }</p></div>
         );
     }
 }

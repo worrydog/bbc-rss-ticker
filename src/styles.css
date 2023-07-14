@@ -1,0 +1,45 @@
+.tickerContainer {
+    width: 100%;
+    margin: 0px;
+    position: fixed;
+    bottom: 0;
+}
+
+.logoStrap {
+    width: 100%;
+    height: 40px;
+    background-color: #FF0000;
+}
+
+.logo {
+    display: flex;
+    max-width: 1200px;
+    height: 100px;
+    width: 100%;
+    margin:0px auto;
+    background: url("./images/bbc-logo.png") no-repeat left 5px;
+    background-size: 100px auto;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    max-width: 1200px;
+    align-items: center;
+    height: 100px;
+    margin:0px auto;
+}
+
+.clockContainer {
+    flex: 0 0 100px;
+    height: 100%;
+}
+
+.headlineContainer {
+    height: 100%;
+    flex-grow: 1;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+    padding: 5px;
+    font: 16px Arial;
+}
