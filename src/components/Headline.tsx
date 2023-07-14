@@ -6,7 +6,7 @@ export class Headline extends Component<RSSEntry> {
     render(): ReactNode {
         const { title } = this.props;
         return (
-            <div className="headlineContainer"><p>{ title }</p></div>
+            <div key={ title } className="headlineContainer"><p>{ title }</p></div>
         );
     }
 }
