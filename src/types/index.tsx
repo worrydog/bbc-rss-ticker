@@ -7,3 +7,7 @@ export type RSSEntry = {
     contentSnippet?: string;
     link?: string;
 }
+
+export type ComponentStyle = {
+    className: string;
+}

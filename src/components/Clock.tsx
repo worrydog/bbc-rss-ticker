@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import "../styles.css";
+import { ComponentStyle } from "../types";
 
-export const Clock: React.FC = () => {
+export const Clock: React.FC<ComponentStyle> = ({ className }) => {
 
     const [ date, setDate ] = useState(new Date());
 
@@ -13,7 +13,7 @@ export const Clock: React.FC = () => {
     }, []);
 
     return (
-        <div className="clockContainer">{ date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }</div>
+        <div className={ className }>{ date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }</div>
     );
 }
 

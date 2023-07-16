@@ -29,9 +29,7 @@ export const App: React.FC = () => {
         const pollRSSFeed = setInterval(async () => {
             if(feed !== undefined) {
                 const newFeed = await RSSUtils.parseRSS(FEED_URL);
-                console.log('CHECKING FOR NEW FEED');
                 if(!RSSUtils.compareArrays(feed.items, newFeed.items)) {
-                    console.log('FOUND NEW FEED');
                     feed = newFeed;
                     clearTimeout(changeTimer);
                     titleIndex = 0;
@@ -57,11 +55,11 @@ export const App: React.FC = () => {
     return (
         <div className="tickerContainer">
             <div className="logoStrap">
-                <Logo />
+                <Logo className={ 'logo' }/>
             </div>
             <div className="flexRow">
-                <Headline link={ headline.link } title={ headline.title }/>
-                <Clock />
+                <Headline link={ headline.link } title={ headline.title } className={ 'headlineContainer' }/>
+                <Clock className={ 'clockContainer' }/>
             </div>
         </div>
     );

@@ -1,8 +1,8 @@
-import "../styles.css";
+import { ComponentStyle } from "../types";
 
-export const Logo: React.FC = ()=> {
+export const Logo: React.FC<ComponentStyle> = ({className}) => {
     return (
-        <div className="logo" />
+        <div className={ className } />
     );
 };
 
