@@ -1,3 +1,7 @@
+body {
+    margin: 0px;
+}
+
 .tickerContainer {
     width: 100%;
     margin: 0px;
@@ -18,22 +22,27 @@
     height: 100px;
     width: 100%;
     margin:0px auto;
-    background: url("./images/bbc-logo.png") no-repeat left 5px;
+    background: url("./images/bbc-logo.png") no-repeat 5px 5px;
     background-size: 100px auto;
 }
 
 .flexRow {
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
     max-width: 1200px;
-    align-items: center;
     height: 100px;
-    margin:0px auto;
+    margin:5px auto;
 }
 
 .clockContainer {
-    flex: 0 0 100px;
-    height: 100%;
+    flex: 0 0 55px;
+    height: 30px;
+    background-color: #FF0000;
+    color: #FFFFFF;
+    font: 16px Arial;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 .headlineContainer {
@@ -46,22 +55,32 @@
     overflow: hidden;
 }
 
+.headlineContainer a:link, a:visited {
+    text-decoration: none;
+    color: #000000;
+}
+
+.headlineContainer a:hover {
+    text-decoration: underline;
+}
+
+
 .headlineContainer p {
-    animation-duration: .5s, .5s;
-    animation-delay: 0s, 2s;
+    animation-duration: .25s, .25s;
+    animation-delay: 0s, 4.5s;
     animation-name: slideInFromTop, slideDown;
     animation-fill-mode: forwards;
 }
 
 @keyframes slideInFromTop {
     from { margin-top: -50px; }
-    to { margin-top: 15px; }
+    to { margin-top: 10px; }
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
 
 @keyframes slideDown {
-    from { margin-top: 15px; }
+    from { margin-top: 10px; }
     to { margin-top: 40px; }
     0% { opacity: 1; }
     100% { opacity: 0; }

@@ -1,51 +1,70 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Headline, Clock, Logo } from "./components";
 import { RSSEntry, RSSFeed } from "./types";
-import { parseRSS } from "./utils/RSSUtils";
+import { RSSUtils } from "./utils/RSSUtils";
 import "./styles.css";
+import { FEED_CHECK_INTERVAL, FEED_URL, HEADLINE_UPDATE_INTERVAL } from "./consts";
 
-export default class App extends React.Component {
+export const App: React.FC = () => {
 
-    private _titleIndex: number = 0;
-
-    state: RSSEntry = {
+    const inititalHeadline: RSSEntry = {
         title: 'Headlines',
         contentSnippet: '',
         link: ''
-    };
-
-    async componentDidMount(): Promise<void> {
-        this.checkForRSSUpdate();
     }
+    
+    const [headline, setHeadline] = useState(inititalHeadline);
 
-    async checkForRSSUpdate(): Promise<void> {
-        this._titleIndex = 0;
-        const feed: RSSFeed = await parseRSS('http://feeds.bbci.co.uk/news/rss.xml');
-        this.updateRSSTitle(feed);
-    }
+    useEffect(() => {
+        let titleIndex = 0;
+        let changeTimer: ReturnType<typeof setTimeout>;
+        let feed: RSSFeed | undefined;
 
-    private updateRSSTitle(feed: RSSFeed): void {
-        console.log(this._titleIndex);
-        this.setState(feed.items[this._titleIndex]);
-        if(this._titleIndex < feed.items.length-1) {
-            this._titleIndex += 1;
-            setTimeout(() => this.updateRSSTitle(feed), 3000);
-        } else {
-            setTimeout(() => this.checkForRSSUpdate(), 3000);
+        const checkForRSSUpdate = async () => {
+            titleIndex = 0;
+            feed = await RSSUtils.parseRSS(FEED_URL);
+            updateRSSTitle(feed);
         }
-    }
 
-    render(): React.ReactNode {
-        return (
-            <div className="tickerContainer">
-                <div className="logoStrap">
-                    <Logo />
-                </div>
-                <div className="flexRow">
-                    <Headline title={ this.state.title }/>
-                    <Clock />
-                </div>
+        const pollRSSFeed = setInterval(async () => {
+            if(feed !== undefined) {
+                const newFeed = await RSSUtils.parseRSS(FEED_URL);
+                console.log('CHECKING FOR NEW FEED');
+                if(!RSSUtils.compareArrays(feed.items, newFeed.items)) {
+                    console.log('FOUND NEW FEED');
+                    feed = newFeed;
+                    clearTimeout(changeTimer);
+                    titleIndex = 0;
+                    updateRSSTitle(feed);
+                }
+            }
+        }, FEED_CHECK_INTERVAL);
+
+        const updateRSSTitle = (feed: RSSFeed) => {
+            setHeadline(feed.items[titleIndex]);
+            titleIndex = titleIndex < feed.items.length-1 ? titleIndex += 1 : titleIndex = 0;
+            changeTimer = setTimeout(() => updateRSSTitle(feed), HEADLINE_UPDATE_INTERVAL);
+        }
+
+        checkForRSSUpdate();
+
+        return () => {
+            clearTimeout(changeTimer);
+            clearInterval(pollRSSFeed);
+        }
+    }, []);
+
+    return (
+        <div className="tickerContainer">
+            <div className="logoStrap">
+                <Logo />
             </div>
-        );
-    }
+            <div className="flexRow">
+                <Headline link={ headline.link } title={ headline.title }/>
+                <Clock />
+            </div>
+        </div>
+    );
 }
+
+export default App;

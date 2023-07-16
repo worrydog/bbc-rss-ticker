@@ -1,12 +1,12 @@
-import { Component, ReactNode } from "react";
 import { RSSEntry } from "../types";
 import "../styles.css";
 
-export class Headline extends Component<RSSEntry> {
-    render(): ReactNode {
-        const { title } = this.props;
-        return (
-            <div key={ title } className="headlineContainer"><p>{ title }</p></div>
-        );
-    }
-}
+export const Headline: React.FC<RSSEntry> = ({ title, link }) => {
+    return (
+        <div key={ title } className="headlineContainer">
+            <a href={ link } target="_blank" rel="noopener noreferrer">
+            <p>{ title }</p>
+            </a>
+        </div>
+    );
+};
