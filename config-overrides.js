@@ -1,11 +1,6 @@
-// const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 const webpack = require("webpack");
 
 module.exports = function override(config, env) {
-    
-  // config.plugins.push(new NodePolyfillPlugin({
-    // excludeAliases: ['console'],
-  // }));
 
   const fallback = config.resolve.fallback || {};
   Object.assign(fallback, {
