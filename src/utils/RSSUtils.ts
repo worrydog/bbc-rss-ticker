@@ -12,7 +12,6 @@ export class RSSUtils {
     }
 
     static compareArrays(originalArray: Array<RSSEntry>, comparisionArray:Array<RSSEntry>): boolean {
-        if(originalArray === undefined || comparisionArray === undefined) throw(new Error('Both arrrays must be defined'));
         const arraysMatch = (originalArray.length === comparisionArray.length) 
             && originalArray.every((value, index) => value.title === comparisionArray[index].title)
         return arraysMatch;
